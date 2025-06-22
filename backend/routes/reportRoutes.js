@@ -23,27 +23,35 @@ router.get(
 // Get all reports of the authenticated user
 router.get("/my-reports", authenticate, reportController.myReportsController);
 
-
-
 // fetching the scrum team names
 router.get(
   "/scrum-teams-for-admin/",
   authenticate,
   reportController.getScrumTeams
 );
-//removed :userId
 
 //fetching users under the scrum team name
 router.get(
   "/users-in-scrumteam/:scrum",
-  authenticate,authorize(["admin"]),
+  authenticate,
+  authorize(["admin"]),
   reportController.getEmpInScrumTeams
 );
-router.get('/reports-for-user/:userId', authenticate,authorize(["admin"]),reportController.getReportsForUser);
+router.get(
+  "/reports-for-user/:userId",
+  authenticate,
+  authorize(["admin"]),
+  reportController.getReportsForUser
+);
 
-router.get('/latest-reports',authenticate,authorize(['admin']),reportController.getLatestReportsForTeam);
+router.get(
+  "/latest-reports",
+  authenticate,
+  authorize(["admin"]),
+  reportController.getLatestReportsForTeam
+);
 
-router.post('/deleteReport',reportController.deleteReport);
-router.put('/update-report',reportController.updateReport);
-router.get('/form-data/:id',reportController.getFormData);
+router.post("/deleteReport", reportController.deleteReport);
+router.put("/update-report", reportController.updateReport);
+router.get("/form-data/:id", reportController.getFormData);
 module.exports = router;
